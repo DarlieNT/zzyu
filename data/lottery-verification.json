@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "id": "1755762212120_pirpbh3ws9",
+      "userId": "admin_zzyu",
+      "prizeId": 0,
+      "prizeName": "谢谢惠顾",
+      "prizeValue": 0,
+      "code": null,
+      "timestamp": "2025-08-21T07:43:32.120Z",
+      "verified": true
+    },
+    {
+      "id": "1755762240858_164zb802rom",
+      "userId": "admin_zzyu",
+      "prizeId": 0,
+      "prizeName": "谢谢惠顾",
+      "prizeValue": 0,
+      "code": null,
+      "timestamp": "2025-08-21T07:44:00.858Z",
+      "verified": true
+    }
+  ]
+}

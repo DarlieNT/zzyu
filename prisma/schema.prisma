@@ -1,0 +1,62 @@
+// Prisma + Vercel Postgres baseline schema
+// - Use POSTGRES_PRISMA_URL for pooled connections on Vercel
+// - Use POSTGRES_URL_NON_POOLING as directUrl for migrations
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id          String   @id @db.VarChar(128) // equals OIDC sub or admin_sub
+  username    String?  @db.VarChar(128)
+  email       String?  @db.VarChar(256)
+  displayName String?  @db.VarChar(128)
+  avatarUrl   String?  @db.VarChar(512)
+  isAdmin     Boolean  @default(false)
+  lastLogin   DateTime @default(now())
+
+  results     LotteryResult[]
+  codes       RedemptionCode[] @relation("UserCodes")
+}
+
+model BannedUser {
+  userId   String   @id @db.VarChar(128)
+  username String?  @db.VarChar(128)
+  reason   String?  @db.VarChar(256)
+  bannedAt DateTime @default(now())
+  bannedBy String?  @db.VarChar(128)
+}
+
+model RedemptionCode {
+  id         String   @id @default(cuid())
+  code       String   @unique @db.VarChar(64)
+  value      Int
+  prizeName  String?  @db.VarChar(64)
+  used       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  // If distributed
+  user       User?    @relation("UserCodes", fields: [userId], references: [id])
+  userId     String?
+  distributedAt DateTime?
+}
+
+model LotteryResult {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  prizeId    Int
+  prizeName  String   @db.VarChar(64)
+  prizeValue Int
+  code       String?  @db.VarChar(64)
+  timestamp  DateTime @default(now())
+  verified   Boolean  @default(true)
+
+  @@index([userId, timestamp])
+}

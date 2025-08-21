@@ -1,0 +1,23 @@
+{
+  "name": "nodeloc-oauth-login",
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_OAUTH_CLIENT_ID": "@oauth-client-id",
+    "OAUTH_CLIENT_SECRET": "@oauth-client-secret",
+    "NEXT_PUBLIC_OAUTH_REDIRECT_URI": "@oauth-redirect-uri",
+    "NEXTAUTH_URL": "@nextauth-url",
+    "NEXTAUTH_SECRET": "@nextauth-secret"
+  },
+  "regions": ["hkg1", "sin1"],
+  "functions": {
+    "src/pages/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.nodeloc.com)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(copy .env.example .env.local)",
+      "Bash(cp:*)",
+      "Bash(taskkill:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
